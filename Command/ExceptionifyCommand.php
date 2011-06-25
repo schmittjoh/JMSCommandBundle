@@ -18,13 +18,13 @@
 
 namespace JMS\CommandBundle\Command;
 
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use JMS\CommandBundle\Generator\ExceptionGenerator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Bundle\FrameworkBundle\Command\Command;
 
-class ExceptionifyCommand extends Command
+class ExceptionifyCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
