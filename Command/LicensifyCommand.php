@@ -24,7 +24,7 @@ class LicensifyCommand extends ContainerAwareCommand
         $license = file_get_contents($kernel->locateResource('@JMSCommandBundle/Resources/skeleton/License/'.$input->getOption('license')));
 
         foreach (Finder::create()->name('*.php')->in($bundle->getPath()) as $file) {
-            $tokens = token_get_all(file_get_contents($file->getFilename()));
+            $tokens = token_get_all(file_get_contents($file->getPathname()));
 
             $content = '';
             $afterNamespace = false;
@@ -34,12 +34,12 @@ class LicensifyCommand extends ContainerAwareCommand
                     continue;
                 }
 
-                if (!$afterNamespace && (T_DOC_COMMENT === $tokens[$i][0] || T_WHITESPACE === $tokens[$i][0])) {
+                if (!$afterNamespace && (T_COMMENT === $tokens[$i][0] || T_WHITESPACE === $tokens[$i][0])) {
                     continue;
                 }
 
                 if (T_NAMESPACE === $tokens[$i][0]) {
-                    $content .= "\n\n".$license."\n";
+                    $content .= "\n".$license."\n\n";
                     $afterNamespace = true;
                 }
 
@@ -50,7 +50,7 @@ class LicensifyCommand extends ContainerAwareCommand
                 continue;
             }
 
-            file_put_contents($file->getFilename(), $content);
+            file_put_contents($file->getPathname(), $content);
         }
     }
 }
