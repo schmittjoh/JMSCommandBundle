@@ -34,7 +34,7 @@ class ExceptionifyCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $bundle = $this->container->get('kernel')->getBundle($input->getArgument('bundle'));
+        $bundle = $this->getContainer()->get('kernel')->getBundle($input->getArgument('bundle'));
         $class = new \ReflectionClass($bundle);
 
         $generator = new ExceptionGenerator();
