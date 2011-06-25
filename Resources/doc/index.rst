@@ -34,3 +34,16 @@ Usage: exceptionify <bundlename>
 
 This command will automatically add bundle exceptions for all SPL exceptions plus
 the approriate use statements according to Symfony2's best practices.
+
+licensify
+~~~~~~~~~
+
+Usage: licensify <bundlename>
+
+::
+
+    php app/console licensify MyBundleName --license Apache2
+    
+This command will automatically add the given license to all PHP files. You can
+change the license text (for example to add your name) by overwriting this bundle
+in your application.
