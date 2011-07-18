@@ -44,6 +44,17 @@ Usage: licensify <bundlename>
 
     php app/console licensify MyBundleName --license Apache2
     
+generate:test-application
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Usage: generate:test-application <bundlename>
+
+::
+
+    php app/console generate:test-application JMSCommandBundle
+    
+Generates a test application inside a bundle which you can use for functional tests.
+    
 This command will automatically add the given license to all PHP files. You can
 change the license text (for example to add your name) by overwriting this bundle
 in your application.

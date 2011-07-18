@@ -1,0 +1,6 @@
+imports:
+    - { resource: framework.yml }
+<?php if ($withDatabase): ?>
+    - { resource: doctrine.yml }
+<?php endif ?>
+    - { resource: twig.yml }
