@@ -38,13 +38,9 @@ class GenerateTestApplicationCommand extends ContainerAwareCommand
             '/config/default.yml' => array(
                 'withDatabase' => $input->getOption('with-database'),
             ),
-            '/config/framework.yml' => array(
-            ),
-            '/config/routing.yml' => array(
-
-            ),
-            '/config/twig.yml' => array(
-            )
+            '/config/framework.yml' => array(),
+            '/config/routing.yml' => array(),
+            '/config/twig.yml' => array(),
         );
 
         if ($input->getOption('with-database')) {
