@@ -74,16 +74,14 @@ class LicensifyCommand extends ContainerAwareCommand
         $metaPath   = $bundle->getPath() . '/Resources/meta';
         $metaFile   = $metaPath . '/LICENSE';
 
-        if (! is_dir($metaPath)) {
+        if (!is_dir($metaPath)) {
             $filesystem = new Filesystem();
             $filesystem->mkdir($metaPath);
-            $filesystem->touch($metaFile);
         }
 
-        file_put_contents($metaFile, $license);
-
-        if (! file_exists($metaFile)) {
-            $output->writeln('<error>Oups! Cannot write the following file: "' . $metaFile .'"</error>');
+        if (!file_exists($metaFile)) {
+            file_put_contents($metaFile, $license);
+            $output->writeln(sprintf('[File+] <comment>%s</comment>', $metaFile));
         }
     }
 }
