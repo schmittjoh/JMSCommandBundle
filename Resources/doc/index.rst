@@ -10,7 +10,7 @@ Installation
 Checkout a copy of the code::
 
     git submodule add https://github.com/schmittjoh/CommandBundle.git src/JMS/CommandBundle
-    
+
 Then register the bundle with your kernel::
 
     // in AppKernel::registerBundles()
@@ -43,11 +43,11 @@ Usage: licensify <bundlename>
 ::
 
     php app/console licensify MyBundleName --license Apache2
-    
-    
+
 This command will automatically add the given license to all PHP files. You can
 change the license text (for example to add your name) by overwriting this bundle
 in your application.
+It will also add the given license in Resources/meta/LICENSE.
 
 generate:test-application
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -57,5 +57,5 @@ Usage: generate:test-application <bundlename>
 ::
 
     php app/console generate:test-application JMSCommandBundle
-    
+
 Generates a test application inside a bundle which you can use for functional tests.
