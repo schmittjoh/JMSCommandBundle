@@ -71,7 +71,7 @@ class LicensifyCommand extends ContainerAwareCommand
         }
 
         // Add LICENSE file in Resources/meta/LICENSE
-        $metaPath   = $bundle->getPath() . '/Resources/meta/';
+        $metaPath   = $bundle->getPath() . '/Resources/meta';
         $metaFile   = $metaPath . '/LICENSE';
 
         if (! is_dir($metaPath)) {
@@ -81,5 +81,9 @@ class LicensifyCommand extends ContainerAwareCommand
         }
 
         file_put_contents($metaFile, $license);
+
+        if (! file_exists($metaFile)) {
+            $output->writeln('<error>Oups! Cannot write the following file: "' . $metaFile .'"</error>');
+        }
     }
 }
