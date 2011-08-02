@@ -32,8 +32,8 @@ Usage: exceptionify <bundlename>
 
     php app/console exceptionify MyBundleName
 
-This command will automatically add bundle exceptions for all SPL exceptions plus
-the approriate use statements according to Symfony2's best practices.
+This command will automatically add bundle exceptions for all SPL exceptions that are
+used inside the bundle plus the approriate use statements according to Symfony2's best practices.
 
 licensify
 ~~~~~~~~~
