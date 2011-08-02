@@ -23,6 +23,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\HttpKernel\Util\Filesystem;
 
 class LicensifyCommand extends ContainerAwareCommand
 {
@@ -68,5 +69,17 @@ class LicensifyCommand extends ContainerAwareCommand
 
             file_put_contents($file->getPathname(), $content);
         }
+
+        // Add LICENSE file in Resources/meta/LICENSE
+        $metaPath   = $bundle->getPath() . '/Resources/meta/';
+        $metaFile   = $metaPath . '/LICENSE';
+
+        if (! is_dir($metaPath)) {
+            $filesystem = new Filesystem();
+            $filesystem->mkdir($metaPath);
+            $filesystem->touch($metaFile);
+        }
+
+        file_put_contents($metaFile, $license);
     }
 }
