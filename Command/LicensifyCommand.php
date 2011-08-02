@@ -79,9 +79,12 @@ class LicensifyCommand extends ContainerAwareCommand
             $filesystem->mkdir($metaPath);
         }
 
+        file_put_contents($metaFile, $license);
+
         if (!file_exists($metaFile)) {
-            file_put_contents($metaFile, $license);
             $output->writeln(sprintf('[File+] <comment>%s</comment>', $metaFile));
+        } else {
+            $output->writeln(sprintf('[Modify] <comment>%s</comment>', $metaFile));
         }
     }
 }
