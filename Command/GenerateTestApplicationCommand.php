@@ -45,6 +45,9 @@ class GenerateTestApplicationCommand extends ContainerAwareCommand
 
         if ($input->getOption('with-database')) {
             $files['/config/doctrine.yml'] = array();
+            $files['/SchemaTest.php'] = array(
+                'namespace' => $bundle->getNamespace(),
+            );
         }
 
         $testDir = $bundle->getPath().'/Tests/Functional';
