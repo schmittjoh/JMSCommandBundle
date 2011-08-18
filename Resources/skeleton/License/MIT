@@ -1,0 +1,9 @@
+/*
+ * This file is part of the <?php echo $bundle->getName() ?> package.
+ *
+ * (c) <?php echo $author ?>
+
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */

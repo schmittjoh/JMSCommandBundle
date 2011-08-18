@@ -32,24 +32,38 @@ class LicensifyCommand extends ContainerAwareCommand
         $this->setName('licensify');
         $this->addArgument('bundle', InputArgument::REQUIRED, 'The bundle which should be licensified.');
         $this->addOption('license', null, InputArgument::OPTIONAL, 'The license to use', 'Apache2');
+        $this->addOption('author', null, InputArgument::OPTIONAL, 'The author to use.', 'Johannes M. Schmitt <schmittjoh@gmail.com>');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $kernel = $this->getContainer()->get('kernel');
         $bundle = $kernel->getBundle($input->getArgument('bundle'));
-        $license = file_get_contents($kernel->locateResource('@JMSCommandBundle/Resources/skeleton/License/'.$input->getOption('license')));
+        $author = $input->getOption('author');
+
+        ob_start();
+        require $kernel->locateResource('@JMSCommandBundle/Resources/skeleton/License/'.$input->getOption('license'));
+        $license = ob_get_clean();
+
+        ob_start();
+        require $kernel->locateResource('@JMSCommandBundle/Resources/skeleton/License/'.$input->getOption('license').'_full');
+        $fullLicense = ob_get_clean();
 
         foreach (Finder::create()->name('*.php')->in($bundle->getPath()) as $file) {
             $tokens = token_get_all(file_get_contents($file->getPathname()));
 
             $content = '';
-            $afterNamespace = false;
+            $afterNamespace = $afterClass = $ignoreWhitespace = false;
             for ($i=0, $c=count($tokens); $i<$c; $i++) {
                 if (!is_array($tokens[$i])) {
                     $content .= $tokens[$i];
                     continue;
                 }
+
+                if ($ignoreWhitespace && T_WHITESPACE === $tokens[$i][0]) {
+                    continue;
+                }
+                $ignoreWhitespace = false;
 
                 if (!$afterNamespace && (T_COMMENT === $tokens[$i][0] || T_WHITESPACE === $tokens[$i][0])) {
                     continue;
@@ -58,6 +72,15 @@ class LicensifyCommand extends ContainerAwareCommand
                 if (T_NAMESPACE === $tokens[$i][0]) {
                     $content .= "\n".$license."\n\n";
                     $afterNamespace = true;
+                }
+
+                if (!$afterClass && T_COMMENT === $tokens[$i][0]) {
+                    $ignoreWhitespace = true;
+                    continue;
+                }
+
+                if (T_CLASS === $tokens[$i][0]) {
+                    $afterClass = true;
                 }
 
                 $content .= $tokens[$i][1];
@@ -79,7 +102,7 @@ class LicensifyCommand extends ContainerAwareCommand
             $filesystem->mkdir($metaPath);
         }
 
-        file_put_contents($metaFile, $license);
+        file_put_contents($metaFile, $fullLicense);
 
         if (!file_exists($metaFile)) {
             $output->writeln(sprintf('[File+] <comment>%s</comment>', $metaFile));
