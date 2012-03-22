@@ -3,8 +3,8 @@
     "type": "symfony-bundle",
     "description": "Provides useful commands to ease development (with Symfony2).",
     "keywords": ["development"],
-    "homepage": "https://github.com/schmittjoh/JMSCommandBundle",
-    "license": "Apache",
+    "homepage": "http://jmsyst.com/bundles/JMSCommandBundle",
+    "license": "Apache2",
     "authors": [
         {
             "name": "Johannes M. Schmitt",
