@@ -55,7 +55,12 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
-        return sys_get_temp_dir().'/<?php echo $name ?>';
+        return sys_get_temp_dir().'/'.Kernel::VERSION.'/<?php echo $name ?>/cache';
+    }
+
+    public function getLogDir()
+    {
+        return sys_get_temp_dir().'/'.Kernel::VERSION.'/<?php echo $name ?>/logs';
     }
 
     public function serialize()
