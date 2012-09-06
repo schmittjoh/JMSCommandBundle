@@ -40,8 +40,8 @@ class AppKernel extends Kernel
         return array(
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
 <?php if ($withDatabase): ?>
-            new \Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
-            new \Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
+            new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
 <?php endif ?>
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
             new \<?php echo $namespace ?>\<?php echo $name ?>(),
