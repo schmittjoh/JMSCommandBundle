@@ -1,6 +1,0 @@
-path_configs:
-    tests:
-        paths: [Tests/*]
-        checkstyle: false
-        doc_comment_fixes: false
-        verify_php_doc_comments: false
