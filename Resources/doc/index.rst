@@ -9,7 +9,7 @@ Installation
 ------------
 Checkout a copy of the code::
 
-    git submodule add https://github.com/schmittjoh/CommandBundle.git src/JMS/CommandBundle
+git submodule add https://github.com/schmittjoh/JMSCommandBundle.git src/JMS/CommandBundle
 
 Then register the bundle with your kernel::
 
