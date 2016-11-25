@@ -68,6 +68,9 @@ class GenerateTestApplicationCommand extends ContainerAwareCommand
         $output->writeln('Test Application has been generated successfully.');
     }
 
+    /**
+     * @param string $jms_name
+     */
     private function render($jms_name, $jms_params = array())
     {
         $jms_path = $this->getContainer()->get('kernel')->locateResource($jms_name);

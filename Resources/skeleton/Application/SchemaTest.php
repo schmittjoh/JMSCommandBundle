@@ -9,7 +9,7 @@ class SchemaTest extends BaseTestCase
     public function testSchemaIsValid()
     {
         $this->createClient();
-        
+
         $validator = new SchemaValidator(self::$kernel->getContainer()->get('doctrine.orm.entity_manager'));
         $errors = $validator->validateMapping();
 

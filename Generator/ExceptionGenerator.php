@@ -37,6 +37,9 @@ class ExceptionGenerator
         $this->lexer = new Lexer();
     }
 
+    /**
+     * @param string $rootNamespace
+     */
     public function generate($rootDir, $rootNamespace)
     {
         if (!is_dir($rootDir)) {
@@ -73,7 +76,7 @@ class ExceptionGenerator
                     || $this->lexer->token['type'] === T_IMPLEMENTS) {
                     $start = $this->lexer->token['type'];
                     $fqcn = '';
-                } else if ($this->lexer->token['type'] === T_STRING || $this->lexer->token['type'] === T_NS_SEPARATOR) {
+                } elseif ($this->lexer->token['type'] === T_STRING || $this->lexer->token['type'] === T_NS_SEPARATOR) {
                     if (null !== $fqcn) {
                         $fqcn .= $this->lexer->token['value'];
                         continue;
@@ -87,16 +90,16 @@ class ExceptionGenerator
                             } else {
                                 $code .= $fqcn;
                             }
-                        } else if ($start === T_USE) {
+                        } elseif ($start === T_USE) {
                             $code .= $fqcn;
                             $useStatements[] = $fqcn;
-                        } else if ($start === T_EXTENDS) {
+                        } elseif ($start === T_EXTENDS) {
                             $extends = $fqcn;
                             $code .= $fqcn;
-                        } else if ($start === T_CLASS) {
+                        } elseif ($start === T_CLASS) {
                             $class = $fqcn;
                             $code .= $fqcn;
-                        } else if ($start === T_IMPLEMENTS) {
+                        } elseif ($start === T_IMPLEMENTS) {
                             $class = $fqcn;
                             $code .= $fqcn;
                         }
@@ -136,9 +139,9 @@ class ExceptionGenerator
                             $code .= 'use '.$import.";\n";
                         }
                     }
-                } else if (!$useStatements && $this->lexer->token['type'] === T_NAMESPACE) {
+                } elseif (!$useStatements && $this->lexer->token['type'] === T_NAMESPACE) {
                     $inNamespace = true;
-                } else if ($inNamespace && $this->lexer->token['type'] === T_LITERAL && $this->lexer->token['value'] === ';') {
+                } elseif ($inNamespace && $this->lexer->token['type'] === T_LITERAL && $this->lexer->token['value'] === ';') {
                     $code .= ";\n";
                     $inNamespace = false;
 
